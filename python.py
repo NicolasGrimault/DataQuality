@@ -6,7 +6,16 @@ data = pd.read_csv('Climat.csv')
 #array = data.values
 
 for col in data :    
-    plt.plot(data[col], label=col)
+    plt.plot(data[col].dropna(), label=col)
+plt.xlabel('Jour')
+plt.ylabel('Température (°C)')
+plt.legend()
+plt.show()
+
+array = []
+for col in data :
+    array = [*array, *data[col].dropna()]   
+plt.plot(array)
 plt.xlabel('Jour')
 plt.ylabel('Température (°C)')
 plt.legend()
