@@ -3,25 +3,26 @@ import pandas as pd
 from matplotlib.widgets import Slider
 
 data = pd.read_csv('Climat.csv')
-data2 = pd.read_csv('ClimatErreur.csv')
+data2 = pd.read_csv('a.csv')
 
 figzoom, axzoom = plt.subplots()
 array = []
 for col in data :
     array = [*array, *data[col].dropna()]   
 
+plt.plot(array)
 
 array2 = []
 for col in data2 :
     array2 = [*array2, *data2[col].dropna()]   
-
-plt.plot(array)
-plt.plot(array2)
-
+plt.plot(data2)
 
 plt.subplots_adjust(left=0.25, bottom=0.25)
 plt.xlabel('Jour')
 plt.ylabel('Température (°C)')
+
+
+axzoom.fill_between(range(0,365), array,array2 , facecolor='yellow', alpha=0.5)
 
 axzoom.set(xlim=(1, 31), autoscale_on=False,title='Zoom window')
 axcolor = 'lightgoldenrodyellow'
@@ -41,5 +42,4 @@ def update(val):
 
 sX.on_changed(update)
 
-plt.legend()
 plt.show()
